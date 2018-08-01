@@ -1,0 +1,77 @@
+'''Problem: write a program to find the maximum value and the second maximum value from a list of integers (from 2-integers to n-integers),
+and outputs the product of those two integers.'''
+
+class max_product:
+
+    def __init__(self, var):
+        self.var = var
+
+    def getL(self):
+        l = []
+        for i in self.var:
+            l.append(i)
+        return l
+
+    '''We come to a fork in the road. There are multiple approaches to the solution.
+    a) making use of the sorted function, index the two largest numbers and obtain their product.
+    b) write an algorithm that compares the integers within a list, determines the largest numbers, then calculates
+    the product.
+    c) make use of the max function to identify the largest integer without sorting, pops that large number from the
+    list, then use the max function again to find the second largest, and lastly calculate the product of the two 
+    integers.
+    I decided to illustrate all different approaches.'''
+
+    # approach a)
+    def sortt(self):
+        p = sorted(self.getL(), reverse=True)
+        return p
+
+    # approach b)
+    def pairedS(self):
+        s = 0
+        for i in self.getL():
+            if i > s:
+                s = i
+        return s
+
+    def pairedU(self):
+        u = 0
+        for j in self.getL():
+            if j != self.pairedS() and j > u:
+                u = j
+        return u
+
+    # approach c)
+    def max1(self):
+        m1 = max(self.getL())
+        return m1
+
+    def max2(self):
+        lst2 = self.getL()
+        ind = lst2.index(self.max1())
+        lst2.pop(ind)
+        m2 = max(lst2)
+        return m2
+
+    def __str__(self):
+        return 'approach a) {0} * {1} = {2}\napproach b) {3} * {4} = {5}\napproach c) {6} * {7} = {8}'.format\
+            (self.sortt()[0],self.sortt()[1],(self.sortt()[0] * self.sortt()[1])\
+             ,self.pairedS(),self.pairedU(),(self.pairedS() * self.pairedU())\
+             ,self.max1(), self.max2(),(self.max1() * self.max2()))
+
+# This is the test code:
+if __name__ == "__main__":
+    # to create the list, use randint from random package.
+    from random import randint
+    lst = []
+    for x in range(100):
+        lst.append(randint(1,800))
+
+    # to ensure the values don't repeat, write a loop to create a new list of unique values
+    unique = []
+    for m in lst:
+        if m not in unique:
+            unique.append(m)
+
+    h = max_product(unique)
+    print(h)
