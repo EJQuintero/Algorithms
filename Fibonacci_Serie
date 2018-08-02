@@ -1,0 +1,14 @@
+'''Write an algorithm that depicts the Fibonacci Series as efficiently as possible, with the least amount of code lines possible.'''
+
+# define a function so the algorithm will be easily called at any number of interest
+def FebFun(var):
+    # The first two numbers in the series are required to begin the process.
+    F = [0, 1]
+    # Each additional number in the series is calculated by adding the two previous numbers.
+    for i in range(2,var):
+        F.append(F[-1] + F[-2])
+    # print results. If our only number of interest is the one used to call the series, then we only print F[-1].
+    print(F)
+
+# Test
+FebFun(20)
